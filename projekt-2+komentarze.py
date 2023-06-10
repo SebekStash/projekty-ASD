@@ -3,10 +3,12 @@ class HeapNode:
     def __init__(self, char, freq):
         self.char = char
         self.freq = freq
+
+        # Służy do porównań wartości nodów
         self.left = None
         self.right = None
 
-# Umożliwia porównanie w lini 46 Nodów, który z nich ma większą wartość.
+# Umożliwia porównanie w lini 47 Nodów, który z nich ma większą wartość.
     def __lt__(self, other):
         return self.freq < other.freq
 
@@ -163,12 +165,17 @@ def huffman_encoding(data):
         return encoded_data, root, codes
 
 
-# Zapis do pliku 
-def write_to_file_txt(codes, encoded_data, output_file_txt):
+# Zapis do pliku słownika
+def write_to_file_txt(codes, output_file_txt):
     with open(output_file_txt, 'w') as file:
         for char, code in codes.items():
             file.write(f"{char}:{code}\n")
-        file.write("\n" + encoded_data)
+
+# Zapis do pliku kodu binarnego
+def write_to_file_binary(encoded_data, output_file_txt):
+    binary_data = bytes([int(encoded_data[i:i+8], 2) for i in range(0, len(encoded_data), 8)])
+    with open(output_file_txt, 'ab') as file:
+        file.write(binary_data)
 
 
 # Odczyt z pliku
@@ -177,13 +184,13 @@ def read_file(input_file):
         data = file.read().replace('\n', '')
     return data
 
-
 input_file = "input.txt"
 output_file_txt = "output.txt"
 
 data = read_file(input_file)
 encoded_data, tree_root, codes = huffman_encoding(data)
-write_to_file_txt(codes, encoded_data, output_file_txt)
+write_to_file_txt(codes, output_file_txt)
+write_to_file_binary(encoded_data, output_file_txt)
 
 # Jakbym nie próbował to nie umiem tego binarnie zapisać by zajmowało mniej miejsca, a czas goni, może to kwestia języka :(
 
