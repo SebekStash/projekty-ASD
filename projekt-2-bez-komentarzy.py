@@ -100,24 +100,35 @@ def encode_string(data, codes):
 
 
 def huffman_encoding(data):
+    # Jeśli nie ma co zakodować zwróć nic.
     if len(data) == 0:
         return "", None, {}
 
     else:
+        # Zbuduj drzewo huffmana
         root = build_huffman_tree(data)
         
+        # Odczytaj kody znaków
         codes = {}
         generate_codes(root, "", codes)
         
+        # Zakoduj dane wejściowe
         encoded_data = encode_string(data, codes)
         return encoded_data, root, codes
 
-# Zapis do pliku 
-def write_to_file_txt(codes, encoded_data, output_file_txt):
+
+# Zapis do pliku słownika
+def write_to_file_txt(codes, output_file_txt):
     with open(output_file_txt, 'w') as file:
         for char, code in codes.items():
             file.write(f"{char}:{code}\n")
-        file.write("\n" + encoded_data)
+
+# Zapis do pliku kodu binarnego
+def write_to_file_binary(encoded_data, output_file_txt):
+    binary_data = bytes([int(encoded_data[i:i+8], 2) for i in range(0, len(encoded_data), 8)])
+    with open(output_file_txt, 'ab') as file:
+        file.write(binary_data)
+
 
 # Odczyt z pliku
 def read_file(input_file):
@@ -130,13 +141,5 @@ output_file_txt = "output.txt"
 
 data = read_file(input_file)
 encoded_data, tree_root, codes = huffman_encoding(data)
-write_to_file_txt(codes, encoded_data, output_file_txt)
-
-# data = "Banany w rabarbarze"
-# encoded_data, tree_root, codes = huffman_encoding(data)
-
-# print("Dane wejściowe:", data)
-# print("Zakodowane:", encoded_data)
-# print("Kody:", codes)
-# # for char, code in codes.items():
-# #     print(char, ":", code)
+write_to_file_txt(codes, output_file_txt)
+write_to_file_binary(encoded_data, output_file_txt)
