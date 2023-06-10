@@ -192,8 +192,6 @@ encoded_data, tree_root, codes = huffman_encoding(data)
 write_to_file_txt(codes, output_file_txt)
 write_to_file_binary(encoded_data, output_file_txt)
 
-# Jakbym nie próbował to nie umiem tego binarnie zapisać by zajmowało mniej miejsca, a czas goni, może to kwestia języka :(
-
 # data = "Banany w rabarbarze"
 # encoded_data, tree_root, codes = huffman_encoding(data)
 
