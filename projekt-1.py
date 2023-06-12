@@ -2,8 +2,8 @@ import time
 import random
 import sys
 
-wielkosc_tablicy = 1000000 # Ile liczb ma mieć tablica
-maksymana_liczba = 10000 # Zakres liczb od 1 do makszymalnej liczby
+wielkosc_tablicy = 2000000 # Ile liczb ma mieć tablica
+maksymana_liczba = 1000000 # Zakres liczb od 1 do makszymalnej liczby
 ################################################################################
 # Heapsort
 ################################################################################
