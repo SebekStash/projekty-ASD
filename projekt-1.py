@@ -2,8 +2,8 @@ import time
 import random
 import sys
 
-wielkosc_tablicy = 2000000 # Ile liczb ma mieć tablica
-maksymana_liczba = 1000000 # Zakres liczb od 1 do makszymalnej liczby
+wielkosc_tablicy = 1000000 # Ile liczb ma mieć tablica
+maksymana_liczba = 10000 # Zakres liczb od 1 do makszymalnej liczby
 ################################################################################
 # Heapsort
 ################################################################################
@@ -22,7 +22,7 @@ def maxHeapify(A, i, heapsize):
     
     if(largest != i):
         A[largest], A[i] = A[i], A[largest]
-        maxHeapify(A, largest ,heapsize-1)
+        maxHeapify(A, largest ,heapsize)
 
 def heapSort(A, heapsize):
     for i in range(heapsize // 2 - 1, -1, -1):
